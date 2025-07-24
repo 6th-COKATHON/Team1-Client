@@ -1,23 +1,40 @@
 import js from '@eslint/js'
 import globals from 'globals'
-import reactHooks from 'eslint-plugin-react-hooks'
-import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
-import { globalIgnores } from 'eslint/config'
+import reactHooks from 'eslint-plugin-react-hooks'
 
 export default tseslint.config([
-  globalIgnores(['dist']),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{ts,tsx,js,jsx}'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      sourceType: 'module',
+      globals: globals.browser,
+      parserOptions: {
+        ecmaFeatures: { jsx: true },
+      },
+    },
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
-      reactHooks.configs['recommended-latest'],
-      reactRefresh.configs.vite,
+      'plugin:react/recommended',
+      reactHooks.configs.recommended,
+      'plugin:prettier/recommended',
     ],
-    languageOptions: {
-      ecmaVersion: 2020,
-      globals: globals.browser,
+    plugins: {
+      reactHooks,
+    },
+    rules: {
+      'react/react-in-jsx-scope': 'off',
+      '@typescript-eslint/no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_' },
+      ],
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
     },
   },
 ])
