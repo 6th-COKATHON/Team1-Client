@@ -1,14 +1,45 @@
-import { createGlobalStyle } from "styled-components";
-import reset from "styled-reset";
-import { media } from "./theme";
-import { theme } from "./theme";
+import { createGlobalStyle } from 'styled-components'
+import reset from 'styled-reset'
+import { media } from './theme'
+import { theme } from './theme'
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
+  
+  @font-face {
+    font-family: "Pretendard-Bold";
+    src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Bold.woff")
+      format("woff");
+    font-weight: 700;
+    font-style: normal;
+  }
 
+  @font-face {
+    font-family: "Pretendard-SemiBold";
+    src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-SemiBold.woff")
+      format("woff");
+    font-weight: 600;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Pretendard-Medium";
+    src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Medium.woff")
+      format("woff");
+    font-weight: 500;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: "Pretendard-Regular";
+    src: url("https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff")
+      format("woff");
+    font-weight: 400;
+    font-style: normal;
+  }
     body {
-    /* font-family 추후 설정  */
-    background-color: ${theme.palette.white};
+    font-family: 'Pretendard-Regular';
+    background-color: ${theme.palette.gray_800};
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -43,9 +74,9 @@ const GlobalStyle = createGlobalStyle`
     outline: none;
   }
 
-  &::-webkit-scrollbar {
+  /* &::-webkit-scrollbar {
     display: none;
-  }
-`;
+  } */
+`
 
-export default GlobalStyle;
+export default GlobalStyle
