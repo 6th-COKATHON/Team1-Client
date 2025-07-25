@@ -26,6 +26,7 @@ import { Emoticon6 } from '@assets/icon/Emoticon6'
 import { Emoticon7 } from '@assets/icon/Emoticon7'
 import { Emoticon8 } from '@assets/icon/Emoticon8'
 import { Emoticon9 } from '@assets/icon/Emoticon9'
+import { MainHomeLogo } from '@assets/image/MainHomeLogo'
 export const Home = () => {
   const { isOpen, open, close, sheetRef } = useBottomSheet()
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
@@ -80,7 +81,7 @@ export const Home = () => {
   return (
     <Container>
       <ImgWrap>
-        <ImgContainer />
+        <MainHomeLogo />
       </ImgWrap>
       <Select onClick={open}>
         당신을 위한 맞춤 한마디를 찾아보세요. <ArrowDown />
