@@ -52,6 +52,7 @@ export const WriteNag = () => {
         text,
         name: userInfo,
       })
+      navigate('/')
     } catch (err) {
       console.error(err)
     }
