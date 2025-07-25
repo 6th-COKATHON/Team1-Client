@@ -32,9 +32,11 @@ export const frameList = [
 ]
 export const WriteNag = () => {
   const { isOpen, open, close, sheetRef } = useBottomSheet()
+  const defaultFrame = frameList[0]
   const navigate = useNavigate()
   const [selectedCategories] = useAtom(selectedCategoryAtom)
   const [text, setText] = useState('')
+  const [emojiKey, setEmojiKey] = useState<string>('1')
   const [userInfo, setUserInfo] = useState('')
   const [selectedFrameKey, setSelectedFrameKey] = useState<string | null>(null)
   const [selectedFrame, setSelectedFrame] = useState<React.FC<
@@ -45,8 +47,8 @@ export const WriteNag = () => {
     try {
       await axiosApi.post('/nags', {
         categories: selectedCategories,
-        imageUrl: selectedFrameKey ?? 0, // 숫자 그대로 전송
-        faceImageUrl: '1', // 문자열 "1"
+        imageUrl: selectedFrameKey ?? 0,
+        faceImageUrl: emojiKey,
         text,
         name: userInfo,
       })
@@ -69,7 +71,12 @@ export const WriteNag = () => {
               </Writer>
             </Header>
           </Container>
-          <WriteCard frameBg={selectedFrame} text={text} setText={setText} />
+          <WriteCard
+            frameBg={selectedFrame}
+            text={text}
+            setText={setText}
+            setEmojiKey={setEmojiKey} // ✅ 추가
+          />
           <FrameWrapper>
             {frameList.map(({ name, Component }, idx) => (
               <FrameBox

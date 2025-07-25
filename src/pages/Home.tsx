@@ -17,6 +17,15 @@ import { GreenSmall } from './../assets/image/GreenSmall'
 import { YellowSmall } from '@assets/image/YellowSmall'
 import { BlackSmall } from '@assets/image/BlackSmall'
 import { WhiteSmall } from '@assets/image/WhiteSmall'
+import { Emoticon1 } from '@assets/icon/Emoticon1'
+import { Emoticon2 } from '@assets/icon/Emoticon2'
+import { Emoticon3 } from '@assets/icon/Emoticon3'
+import { Emoticon4 } from '@assets/icon/Emoticon4'
+import { Emoticon5 } from '@assets/icon/Emoticon5'
+import { Emoticon6 } from '@assets/icon/Emoticon6'
+import { Emoticon7 } from '@assets/icon/Emoticon7'
+import { Emoticon8 } from '@assets/icon/Emoticon8'
+import { Emoticon9 } from '@assets/icon/Emoticon9'
 export const Home = () => {
   const { isOpen, open, close, sheetRef } = useBottomSheet()
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
@@ -32,10 +41,31 @@ export const Home = () => {
     { name: 'white', Component: WhiteSmall },
   ]
 
+  const faceIconList = [
+    Emoticon1,
+    Emoticon2,
+    Emoticon3,
+    Emoticon4,
+    Emoticon5,
+    Emoticon6,
+    Emoticon7,
+    Emoticon8,
+    Emoticon9,
+  ]
+
   const getFrameComponent = (imageUrl: string) => {
     const index = Number(imageUrl)
     return smallframeList[index - 1]?.Component ?? smallframeList[0].Component
   }
+
+  const getFaceIconComponent = (faceImageUrl: string) => {
+    const index = Number(faceImageUrl)
+    if (isNaN(index) || index < 1 || index > faceIconList.length) {
+      return SmileIcon // 기본 아이콘
+    }
+    return faceIconList[index - 1]
+  }
+
   useEffect(() => {
     const fetchNags = async () => {
       try {
@@ -58,6 +88,7 @@ export const Home = () => {
       <CardList>
         {nagList.map((nag) => {
           const FrameComponent = getFrameComponent(nag.imageUrl)
+          const FaceIconComponent = getFaceIconComponent(nag.faceImageUrl) // 여기!
 
           return (
             <Card key={nag.id} onClick={() => navigate(`/showNag/${nag.id}`)}>
@@ -67,7 +98,7 @@ export const Home = () => {
                 </FrameWrapper>
               )}
               <ContentWrapper>
-                <SmileIcon />
+                {FaceIconComponent ? <FaceIconComponent /> : <SmileIcon />}
                 <Text typo="Body_1" color="gray_0">
                   {nag.text}
                 </Text>

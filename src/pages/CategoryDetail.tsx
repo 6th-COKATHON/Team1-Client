@@ -21,6 +21,15 @@ import { GreenSmall } from '@assets/image/GreenSmall'
 import { YellowSmall } from '@assets/image/YellowSmall'
 import { BlackSmall } from '@assets/image/BlackSmall'
 import { WhiteSmall } from '@assets/image/WhiteSmall'
+import { Emoticon1 } from '@assets/icon/Emoticon1'
+import { Emoticon2 } from '@assets/icon/Emoticon2'
+import { Emoticon3 } from '@assets/icon/Emoticon3'
+import { Emoticon4 } from '@assets/icon/Emoticon4'
+import { Emoticon5 } from '@assets/icon/Emoticon5'
+import { Emoticon6 } from '@assets/icon/Emoticon6'
+import { Emoticon7 } from '@assets/icon/Emoticon7'
+import { Emoticon8 } from '@assets/icon/Emoticon8'
+import { Emoticon9 } from '@assets/icon/Emoticon9'
 
 export const CategoryDetail = () => {
   const [searchParams] = useSearchParams()
@@ -29,7 +38,17 @@ export const CategoryDetail = () => {
   const [minute, setMinute] = useState('')
   const category = searchParams.get('category') || ''
   const navigate = useNavigate()
-
+  const faceIconList = [
+    Emoticon1,
+    Emoticon2,
+    Emoticon3,
+    Emoticon4,
+    Emoticon5,
+    Emoticon6,
+    Emoticon7,
+    Emoticon8,
+    Emoticon9,
+  ]
   const [sort, setSort] = useState<'latest' | 'popular'>('popular')
   const [isFilterOpen, setIsFilterOpen] = useState(false)
   const { isOpen, open, close, sheetRef } = useBottomSheet()
@@ -43,6 +62,15 @@ export const CategoryDetail = () => {
     { name: 'black', Component: BlackSmall },
     { name: 'white', Component: WhiteSmall },
   ]
+
+  const getFaceIconComponent = (faceImageUrl: string) => {
+    const index = Number(faceImageUrl)
+    if (isNaN(index) || index < 1 || index > faceIconList.length) {
+      return SmileIcon
+    }
+    return faceIconList[index - 1]
+  }
+
   const toggleFilter = () => setIsFilterOpen((prev) => !prev)
   const handleFilterSelect = (filter: 'latest' | 'popular') => {
     setSort(filter)
@@ -118,6 +146,8 @@ export const CategoryDetail = () => {
           {nagData?.data.map((nag: Nag) => {
             const FrameComponent =
               smallframeList[Number(nag.imageUrl) - 1]?.Component
+            const FaceIconComponent = getFaceIconComponent(nag.faceImageUrl)
+
             return (
               <Card key={nag.id}>
                 {FrameComponent && (
@@ -126,7 +156,7 @@ export const CategoryDetail = () => {
                   </FrameWrapper>
                 )}
                 <IconWrap>
-                  <SmileIcon />
+                  <FaceIconComponent />
                 </IconWrap>
                 <CardText>
                   <Text typo="Body_1" color="gray_0" children={nag.text} />
