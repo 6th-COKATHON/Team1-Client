@@ -29,7 +29,7 @@ export const ShowNag = () => {
 
   if (isLoading) return <Text typo="Caption_1">불러오는 중...</Text>
   if (isError || !data?.data) return <Text typo="Caption_1">불러오기 실패</Text>
-  const { text, name, imageUrl } = data.data
+  const { text, name, imageUrl, faceImageUrl } = data.data
   console.log(id, text, name, typeof imageUrl)
   const handleLike = async () => {
     if (!like) {
@@ -73,7 +73,8 @@ export const ShowNag = () => {
             </Writer>
           </Header>
         </Container>
-        <NagCard text={text} imageUrl={imageUrl} />
+
+        <NagCard text={text} imageUrl={imageUrl} faceImageUrl={faceImageUrl} />
       </FlexBox>
       <IconWrapper>
         <ThumbWrapper>
